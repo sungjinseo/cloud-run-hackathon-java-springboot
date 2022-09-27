@@ -60,6 +60,8 @@ public class Application {
     String[] commands = new String[]{"F", "R", "L", "T"};
 
     PlayerState myInfo = arenaUpdate.arena.state.get(arenaUpdate._links.self.href);
+    arenaUpdate.arena.state.remove(arenaUpdate._links.self.href);
+    List<PlayerState> enermyList = new ArrayList<>(arenaUpdate.arena.state.values());
     List<Integer> arenaSize = arenaUpdate.arena.dims;
 
     System.out.println(arenaSize.get(0)+"::::"+arenaSize.get(1));
@@ -67,9 +69,6 @@ public class Application {
     System.out.println(myInfo.direction);
 
     if(myInfo.x == arenaSize.get(0)-1 && myInfo.y == arenaSize.get(1)-1){
-      arenaUpdate.arena.state.remove(arenaUpdate._links.self.href);
-      List<PlayerState> enermyList = new ArrayList<>(arenaUpdate.arena.state.values());
-
       //대각선까지는 귀찮아
       //해당적이 오는 방향으로 돌아서 잇다가 공격
       List<PlayerState> x_enermy = enermyList.stream()
@@ -80,9 +79,10 @@ public class Application {
                                              .filter(item->item.y >= arenaSize.get(1)-3)
                                              .collect(Collectors.toList());
 
+      // 3칸이내로 공격된다고 한다~~
       if(x_enermy.size()>0){
         // 서쪽아니면 북쪽을 본다
-        if("S".equals(myInfo.direction)){
+        if("W".equals(myInfo.direction)){
           return "T";
         }else{
           return "L";
@@ -112,10 +112,19 @@ public class Application {
       // 가는길 앞에 적이 있다면 어떻게 할것인가 공격...
       // 적이나랑 같은 방향으로 움직이고 있다면 공격
       // 없다면 지나가자
+      // 경로에서 3칸안에 적이 있다면 공격부터 하자
 
       if(myInfo.x != arenaSize.get(0)-1){
+
         //String[] commands = new String[]{"F", "R", "L", "T"};
         if("E".equals(myInfo.direction)){
+          List<PlayerState> x_enermy = enermyList.stream()
+                  .filter(item->item.x >= arenaSize.get(0)-3)
+                  .collect(Collectors.toList());
+
+          if(x_enermy.size()>0){
+            return "T";
+          }
           if(myInfo.wasHit){
             return "T";
           }
@@ -130,6 +139,14 @@ public class Application {
 
       if(myInfo.y != arenaSize.get(1)-1){
         if("S".equals(myInfo.direction)){
+
+          List<PlayerState> y_enermy = enermyList.stream()
+                  .filter(item->item.y >= arenaSize.get(1)-3)
+                  .collect(Collectors.toList());
+          if(y_enermy.size()>0){
+            return "T";
+          }
+
           if(myInfo.wasHit){
             return "T";
           }
