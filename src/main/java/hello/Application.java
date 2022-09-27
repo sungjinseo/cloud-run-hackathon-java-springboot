@@ -60,7 +60,7 @@ public class Application {
 
 
     PlayerState myInfo = arenaUpdate.arena.state.get(arenaUpdate._links.self.href);
-    List<Integer> arenaUpdate.arena.dims;
+    List<Integer> arenaSize = arenaUpdate.arena.dims;
     arenaSize.get(0);// 높이
     arenaSize.get(1);// 넓이
     //myInfo.x;
