@@ -57,14 +57,12 @@ public class Application {
   public String index(@RequestBody ArenaUpdate arenaUpdate) {
     String[] commands = new String[]{"F", "R", "L", "T"};
 
-
-
     PlayerState myInfo = arenaUpdate.arena.state.get(arenaUpdate._links.self.href);
     List<Integer> arenaSize = arenaUpdate.arena.dims;
-    arenaSize.get(0);// 높이
-    arenaSize.get(1);// 넓이
-    //myInfo.x;
-    //myInfo.y;
+
+    System.out.println(arenaSize.get(0)+"::::"+arenaSize.get(1));
+    System.out.println(myInfo.y+"::::"+myInfo.x);
+
     if(myInfo.x == arenaSize.get(1) && myInfo.y == arenaSize.get(0)){
       if(!"N".equals(myInfo.direction) && !"W".equals(myInfo.direction)){
         if("S".equals(myInfo.direction)){
@@ -78,9 +76,13 @@ public class Application {
 
 
     }else{
+      // 가는길 앞에 적이 있다면 어떻게 할것인가 공격...
       if(myInfo.x != arenaSize.get(1)){
         //String[] commands = new String[]{"F", "R", "L", "T"};
         if("E".equals(myInfo.direction)){
+          if(myInfo.wasHit){
+            return "T";
+          }
           return "F";
         }else if("N".equals(myInfo.direction)){
           return "R";
@@ -92,6 +94,9 @@ public class Application {
 
       if(myInfo.y != arenaSize.get(0)){
         if("S".equals(myInfo.direction)){
+          if(myInfo.wasHit){
+            return "T";
+          }
           return "F";
         }else if("E".equals(myInfo.direction)){
           return "R";
