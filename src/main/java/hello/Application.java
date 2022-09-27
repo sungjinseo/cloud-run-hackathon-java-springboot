@@ -72,16 +72,17 @@ public class Application {
       //대각선까지는 귀찮아
       //해당적이 오는 방향으로 돌아서 잇다가 공격
       List<PlayerState> x_enermy = enermyList.stream()
-                                             .filter(item->item.x >= arenaSize.get(0)-3)
+                                             .filter(item->item.x >= arenaSize.get(0)-4)
                                              .collect(Collectors.toList());
 
       List<PlayerState> y_enermy = enermyList.stream()
-                                             .filter(item->item.y >= arenaSize.get(1)-3)
+                                             .filter(item->item.y >= arenaSize.get(1)-4)
                                              .collect(Collectors.toList());
 
       // 3칸이내로 공격된다고 한다~~
       if(x_enermy.size()>0){
         // 서쪽아니면 북쪽을 본다
+        System.out.println("x축으로 3칸이내 적이있어");
         if("W".equals(myInfo.direction)){
           return "T";
         }else{
@@ -90,6 +91,7 @@ public class Application {
       }
 
       if(y_enermy.size()>0){
+        System.out.println("y축으로 3칸이내 적이있어");
         if("N".equals(myInfo.direction)){
           return "T";
         }else{
@@ -98,6 +100,7 @@ public class Application {
       }
 
       if(!"N".equals(myInfo.direction) && !"W".equals(myInfo.direction)){
+        System.out.println("방향이 내가 원하는 쪽이 아니면 돌아보자");
         if("S".equals(myInfo.direction)){
           return "R";
         }else{
