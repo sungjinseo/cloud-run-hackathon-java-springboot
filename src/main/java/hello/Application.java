@@ -84,8 +84,10 @@ public class Application {
         // 서쪽아니면 북쪽을 본다
         System.out.println("x축으로 3칸이내 적이있어");
         if("W".equals(myInfo.direction)){
+          System.out.println("87Result::T");
           return "T";
         }else{
+          System.out.println("90Result::L");
           return "L";
         }
       }
@@ -93,8 +95,10 @@ public class Application {
       if(y_enermy.size()>0){
         System.out.println("y축으로 3칸이내 적이있어");
         if("N".equals(myInfo.direction)){
+          System.out.println("98Result::T");
           return "T";
         }else{
+          System.out.println("101Result::R");
           return "R";
         }
       }
@@ -102,12 +106,15 @@ public class Application {
       if(!"N".equals(myInfo.direction) && !"W".equals(myInfo.direction)){
         System.out.println("방향이 내가 원하는 쪽이 아니면 돌아보자");
         if("S".equals(myInfo.direction)){
+          System.out.println("109Result::R");
           return "R";
         }else{
+          System.out.println("112Result::L");
           return "L";
         }
       }
 
+      System.out.println("117Result::T");
       return "T";
 
 
@@ -118,7 +125,6 @@ public class Application {
       // 경로에서 3칸안에 적이 있다면 공격부터 하자
 
       if(myInfo.x != arenaSize.get(0)-1){
-
         //String[] commands = new String[]{"F", "R", "L", "T"};
         if("E".equals(myInfo.direction)){
           List<PlayerState> x_enermy = enermyList.stream()
@@ -126,15 +132,16 @@ public class Application {
                   .collect(Collectors.toList());
 
           if(x_enermy.size()>0){
+            System.out.println("135Result::T");
             return "T";
           }
-          if(myInfo.wasHit){
-            return "T";
-          }
+          System.out.println("138Result::F");
           return "F";
         }else if("N".equals(myInfo.direction)){
+          System.out.println("140Result::R");
           return "R";
         }else{
+          System.out.println("142Result::L");
           return "L";
         }
 
@@ -147,20 +154,21 @@ public class Application {
                   .filter(item->item.y >= arenaSize.get(1)-3)
                   .collect(Collectors.toList());
           if(y_enermy.size()>0){
+            System.out.println("154Result::T");
             return "T";
           }
-
-          if(myInfo.wasHit){
-            return "T";
-          }
+          System.out.println("157Result::F");
           return "F";
         }else if("E".equals(myInfo.direction)){
+          System.out.println("160Result::R");
           return "R";
         }else{
+          System.out.println("163Result::L");
           return "L";
         }
       }
     }
+    System.out.println("168Result::T");
     return "T";
   }
 
