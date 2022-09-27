@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -65,17 +66,18 @@ public class Application {
 
     if(myInfo.x == arenaSize.get(0)-1 && myInfo.y == arenaSize.get(1)-1){
 
+      List<PlayerState> enermyList = new ArrayList<>(arenaUpdate.arena.state.values());
 
+      // 정보에는 내정보도 포함되어 있다.
+      //map.remove("Key1"); // Key1에 해당하는 데이터 삭제
+      //enermyList.stream().filter(item->)
 
-      // here to find the enermy
-      //arenaUpdate.arena.state
-      //List<PlayerState> allPlayerList =
 
       if(!"N".equals(myInfo.direction) && !"W".equals(myInfo.direction)){
         if("S".equals(myInfo.direction)){
-          return "L";
-        }else{
           return "R";
+        }else{
+          return "L";
         }
       }
 
