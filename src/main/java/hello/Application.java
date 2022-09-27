@@ -64,17 +64,21 @@ public class Application {
 
     System.out.println(arenaSize.get(0)+"::::"+arenaSize.get(1));
     System.out.println(myInfo.x+"::::"+myInfo.y);
+    System.out.println(myInfo.direction);
 
     if(myInfo.x == arenaSize.get(0)-1 && myInfo.y == arenaSize.get(1)-1){
       arenaUpdate.arena.state.remove(arenaUpdate._links.self.href);
       List<PlayerState> enermyList = new ArrayList<>(arenaUpdate.arena.state.values());
 
-      // 정보에는 내정보도 포함되어 있다.
-      //map.remove("Key1"); // Key1에 해당하는 데이터 삭제
       //대각선까지는 귀찮아
       //해당적이 오는 방향으로 돌아서 잇다가 공격
-      List<PlayerState> x_enermy = enermyList.stream().filter(item->item.x >= arenaSize.get(0)-3).collect(Collectors.toList());
-      List<PlayerState> y_enermy = enermyList.stream().filter(item->item.y >= arenaSize.get(1)-3).collect(Collectors.toList());
+      List<PlayerState> x_enermy = enermyList.stream()
+                                             .filter(item->item.x >= arenaSize.get(0)-3)
+                                             .collect(Collectors.toList());
+
+      List<PlayerState> y_enermy = enermyList.stream()
+                                             .filter(item->item.y >= arenaSize.get(1)-3)
+                                             .collect(Collectors.toList());
 
       if(x_enermy.size()>0){
         // 서쪽아니면 북쪽을 본다
@@ -106,6 +110,9 @@ public class Application {
 
     }else{
       // 가는길 앞에 적이 있다면 어떻게 할것인가 공격...
+      // 적이나랑 같은 방향으로 움직이고 있다면 공격
+      // 없다면 지나가자
+
       if(myInfo.x != arenaSize.get(0)-1){
         //String[] commands = new String[]{"F", "R", "L", "T"};
         if("E".equals(myInfo.direction)){
