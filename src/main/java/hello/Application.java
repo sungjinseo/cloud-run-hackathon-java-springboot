@@ -57,11 +57,58 @@ public class Application {
   public String index(@RequestBody ArenaUpdate arenaUpdate) {
     System.out.println(arenaUpdate);
     String[] commands = new String[]{"F", "R", "L", "T"};
-    int i = new Random().nextInt(4);
-    
-    // TODO add your implementation here to replace the random response. 
-    
-    return commands[i];
+    // 목표는 오른쪽 아래 구석탱이로 가자
+    // 왼쪽으로 가서 벽이면 위로 간다
+    arenaSize.get(0);// 높이
+    arenaSize.get(1);// 넓이
+    // 이스트랑 // 사우스로 맞춘다
+
+    System.out.println(myInfo.x + "::::" + myInfo.y);
+    System.out.println(arenaSize.get(1) + "::::" + arenaSize.get(0));
+    //myInfo.x;
+    //myInfo.y;
+    if(myInfo.x == arenaSize.get(1) && myInfo.y == arenaSize.get(0)){
+      // my direction은 항상 N이나 W를 바라보고 있어야 한다 아니라면 맞춰주자
+      // 위아래로 2칸에 위치한 적의 정보를 얻는다
+      if(!"N".equals(myInfo.direction) && !"W".equals(myInfo.direction)){
+        if("S".equals(myInfo.direction)){
+          return "L";
+        }else{
+          return "R";
+        }
+      }
+
+      return "T";
+
+
+      // 여기서 방어 한다 대각선방향은 어디로 바라보고 있는지 확인하고 아래위로 2칸전에 오고 있는지 확인하자
+    }else{
+      // 계속 움직이자 움직이면서 맞아도 움직이자.
+      // 오른쪽부터 그리고 아래쪽으로 순서대로 움직인다.
+      if(myInfo.x != arenaSize.get(1)){
+        // 여기서 방향이 동쪽이면 움직이고 아니면 방향을 맞춰주자
+        //String[] commands = new String[]{"F", "R", "L", "T"};
+        if("E".equals(myInfo.direction)){
+          return "F";
+        }else if("N".equals(myInfo.direction)){
+          return "R";
+        }else{
+          return "L";
+        }
+
+      }
+
+      if(myInfo.y != arenaSize.get(0)){
+        if("S".equals(myInfo.direction)){
+          return "F";
+        }else if("E".equals(myInfo.direction)){
+          return "R";
+        }else{
+          return "L";
+        }
+      }
+    }
+    return "T";
   }
 
 }
