@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 @SpringBootApplication
 @RestController
@@ -65,13 +66,32 @@ public class Application {
     System.out.println(myInfo.x+"::::"+myInfo.y);
 
     if(myInfo.x == arenaSize.get(0)-1 && myInfo.y == arenaSize.get(1)-1){
-
+      arenaUpdate.arena.state.remove(arenaUpdate._links.self.href);
       List<PlayerState> enermyList = new ArrayList<>(arenaUpdate.arena.state.values());
 
       // 정보에는 내정보도 포함되어 있다.
       //map.remove("Key1"); // Key1에 해당하는 데이터 삭제
-      //enermyList.stream().filter(item->)
+      //대각선까지는 귀찮아
+      //해당적이 오는 방향으로 돌아서 잇다가 공격
+      List<PlayerState> x_enermy = enermyList.stream().filter(item->item.x >= arenaSize.get(0)-3).collect(Collectors.toList());
+      List<PlayerState> y_enermy = enermyList.stream().filter(item->item.y >= arenaSize.get(1)-3).collect(Collectors.toList());
 
+      if(x_enermy.size()>0){
+        // 서쪽아니면 북쪽을 본다
+        if("S".equals(myInfo.direction)){
+          return "T";
+        }else{
+          return "L";
+        }
+      }
+
+      if(y_enermy.size()>0){
+        if("N".equals(myInfo.direction)){
+          return "T";
+        }else{
+          return "R";
+        }
+      }
 
       if(!"N".equals(myInfo.direction) && !"W".equals(myInfo.direction)){
         if("S".equals(myInfo.direction)){
