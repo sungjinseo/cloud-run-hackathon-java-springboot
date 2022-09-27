@@ -56,6 +56,11 @@ public class Application {
   @PostMapping("/**")
   public String index(@RequestBody ArenaUpdate arenaUpdate) {
     String[] commands = new String[]{"F", "R", "L", "T"};
+
+
+
+    PlayerState myInfo = arenaUpdate.arena.state.get(arenaUpdate._links.self.href);
+    List<Integer> arenaUpdate.arena.dims;
     arenaSize.get(0);// 높이
     arenaSize.get(1);// 넓이
     //myInfo.x;
