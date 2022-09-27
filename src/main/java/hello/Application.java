@@ -61,9 +61,16 @@ public class Application {
     List<Integer> arenaSize = arenaUpdate.arena.dims;
 
     System.out.println(arenaSize.get(0)+"::::"+arenaSize.get(1));
-    System.out.println(myInfo.y+"::::"+myInfo.x);
+    System.out.println(myInfo.x+"::::"+myInfo.y);
 
-    if(myInfo.x == arenaSize.get(1)-1 && myInfo.y == arenaSize.get(0)-1){
+    if(myInfo.x == arenaSize.get(0)-1 && myInfo.y == arenaSize.get(1)-1){
+
+
+
+      // here to find the enermy
+      //arenaUpdate.arena.state
+      //List<PlayerState> allPlayerList =
+
       if(!"N".equals(myInfo.direction) && !"W".equals(myInfo.direction)){
         if("S".equals(myInfo.direction)){
           return "L";
@@ -77,7 +84,7 @@ public class Application {
 
     }else{
       // 가는길 앞에 적이 있다면 어떻게 할것인가 공격...
-      if(myInfo.x != arenaSize.get(1)-1){
+      if(myInfo.x != arenaSize.get(0)-1){
         //String[] commands = new String[]{"F", "R", "L", "T"};
         if("E".equals(myInfo.direction)){
           if(myInfo.wasHit){
@@ -92,7 +99,7 @@ public class Application {
 
       }
 
-      if(myInfo.y != arenaSize.get(0)-1){
+      if(myInfo.y != arenaSize.get(1)-1){
         if("S".equals(myInfo.direction)){
           if(myInfo.wasHit){
             return "T";
