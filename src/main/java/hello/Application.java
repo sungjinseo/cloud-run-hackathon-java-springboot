@@ -72,11 +72,11 @@ public class Application {
       //대각선까지는 귀찮아
       //해당적이 오는 방향으로 돌아서 잇다가 공격
       List<PlayerState> x_enermy = enermyList.stream()
-                                             .filter(item->item.x >= arenaSize.get(0)-4)
+                                             .filter(item->item.x >= arenaSize.get(0)-4 && item.y == myInfo.y)
                                              .collect(Collectors.toList());
 
       List<PlayerState> y_enermy = enermyList.stream()
-                                             .filter(item->item.y >= arenaSize.get(1)-4)
+                                             .filter(item->item.y >= arenaSize.get(1)-4  && item.x == myInfo.x)
                                              .collect(Collectors.toList());
 
       // 3칸이내로 공격된다고 한다~~
@@ -128,8 +128,10 @@ public class Application {
         //String[] commands = new String[]{"F", "R", "L", "T"};
         if("E".equals(myInfo.direction)){
           List<PlayerState> x_enermy = enermyList.stream()
-                  .filter(item->item.x >= arenaSize.get(0)-3)
+                  .filter(item->item.x - myInfo.x > 0 && item.x -myInfo.x <= 3 && item.y == myInfo.y)
                   .collect(Collectors.toList());
+
+          //item.y >= arenaSize.get(1)
 
           if(x_enermy.size()>0){
             System.out.println("135Result::T");
@@ -149,9 +151,8 @@ public class Application {
 
       if(myInfo.y != arenaSize.get(1)-1){
         if("S".equals(myInfo.direction)){
-
           List<PlayerState> y_enermy = enermyList.stream()
-                  .filter(item->item.y >= arenaSize.get(1)-3)
+                  .filter(item->item.y - myInfo.y > 0 && item.y -myInfo.y <= 3 && item.x == myInfo.x)
                   .collect(Collectors.toList());
           if(y_enermy.size()>0){
             System.out.println("154Result::T");
